@@ -7,7 +7,7 @@ app.use(express.json())
 app.use("/", routerProduto)
 
 app.use((err, req, res, next) => {
-  res.status(500).send({ error: err.message })
+  res.status(400).send({ error: err.message })
 })
 
 module.exports = { app }
