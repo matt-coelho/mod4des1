@@ -1,4 +1,4 @@
-const model = require("../models/produto.model.js")
+import model from "../models/produto.model.js"
 
 async function create(produto) {
   try {
@@ -24,7 +24,7 @@ async function readByCode(produto) {
   }
 }
 
-async function readByPK() {
+async function readByPK(produto) {
   try {
     return await model.findByPk(produto.id)
   } catch (err) {
@@ -51,4 +51,4 @@ async function remove(produto) {
   }
 }
 
-module.exports = { create, readByPK, readByCode, readAll, update, remove }
+export default { create, readByPK, readByCode, readAll, update, remove }

@@ -1,10 +1,12 @@
-const express = require("express")
+import express from "express"
+import controller from "../controllers/produto.controller.js"
 
 const router = express.Router()
 
 router.post("/produto", controller.create)
-router.get("/produto/:id", constroller.read)
-router.put("/produto", constroller.update)
-router.delete("/produto/:id", constroller.remove)
+router.get("/produtos", controller.read)
+router.get("/produto/:id", controller.read)
+router.put("/produto", controller.update)
+router.delete("/produto/:id", controller.remove)
 
-module.exports = { router }
+export default router

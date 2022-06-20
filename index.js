@@ -1,5 +1,5 @@
-const server = require("./src/app.js")
+import server from "./src/app.js"
 
 server.listen(8090, () => {
-  "server is up"
+  console.log("server is up")
 })

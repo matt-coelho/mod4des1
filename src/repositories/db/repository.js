@@ -1,8 +1,13 @@
-const Sequelize = require("sequelize")
+import Sequelize from "sequelize"
 
-const sequelize = new Sequelize(
-  "postgres://iydascqg:OdbRTFG9Fpo1KgoGxULL5T-lUqGMgAT3@fanny.db.elephantsql.com/iydascqg",
-  { dialect: "postgres", define: { timestamps: false } }
-)
+const sequelize = new Sequelize({
+  dialect: "postgres",
+  host: "localhost",
+  port: 5432,
+  database: "postgres",
+  username: "postgres",
+  password: "admin",
+  logging: false,
+})
 
-module.exports = { sequelize }
+export default sequelize

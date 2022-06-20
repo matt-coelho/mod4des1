@@ -1,7 +1,8 @@
-const express = require("express")
-const routerProduto = require("./routes/produto.route.js")
+import express from "express"
+import cors from "cors"
+import routerProduto from "./routes/produto.route.js"
 
-const app = express()
+const app = express(cors)
 app.use(express.json())
 
 app.use("/", routerProduto)
@@ -10,4 +11,4 @@ app.use((err, req, res, next) => {
   res.status(400).send({ error: err.message })
 })
 
-module.exports = { app }
+export default app

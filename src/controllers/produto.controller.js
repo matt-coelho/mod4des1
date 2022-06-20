@@ -1,4 +1,4 @@
-const service = require("../services/produto.service.js")
+import service from "../services/produto.service.js"
 
 async function create(req, res, next) {
   const produto = req.body
@@ -6,11 +6,9 @@ async function create(req, res, next) {
     if (!produto.codigo || !produto.descricao || !produto.preco) {
       throw new Error("Campos obrigatorios para produto não informados")
     }
-    let produto_f = null
-    if (produto.codigo) {
-      produto_f = await service.read(produto)
-    }
-    if (produto_f) {
+    const p = await service.read(produto)
+    if (p.id) {
+      produto.id = p.id
       res.send(await service.update(produto))
     }
     res.status(201).send(await service.create(produto))
@@ -21,6 +19,7 @@ async function create(req, res, next) {
 
 async function read(req, res, next) {
   const produto = { id: parseInt(req.params.id) }
+  console.log(produto)
   try {
     res.send(await service.read(produto))
   } catch (err) {
@@ -55,11 +54,10 @@ async function remove(req, res, next) {
     if (!produto_f.codigo || !produto_f.preco) {
       res.status(405).send(JSON.stringify({ error: `Produto não encontrado.` }))
     }
-    await service.remove(produto_r)
-    res.send("Produto removido")
+    res.send(await service.remove(produto_r))
   } catch (err) {
     next(err)
   }
 }
 
-module.exports = { create, read, update, remove }
+export default { create, read, update, remove }

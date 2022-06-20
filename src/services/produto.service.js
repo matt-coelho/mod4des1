@@ -1,11 +1,11 @@
-const repository = require("../repositories/produto.repository.js")
+import repository from "../repositories/produto.repository.js"
 
 async function create(produto) {
   return await repository.create(produto)
 }
 
 async function read(produto) {
-  if (!produto.id || !produto.codigo) {
+  if (!produto.id && !produto.codigo) {
     return await repository.readAll()
   }
   if (produto.id) {
@@ -24,4 +24,4 @@ async function remove(produto) {
   return await repository.remove(produto)
 }
 
-module.exports = { create, read, update, remove }
+export default { create, read, update, remove }
