@@ -7,11 +7,12 @@ async function create(req, res, next) {
       throw new Error("Campos obrigatorios para produto não informados")
     }
     const p = await service.read(produto)
-    if (p.id) {
+    if (p) {
       produto.id = p.id
       res.send(await service.update(produto))
+    } else {
+      res.status(201).send(await service.create(produto))
     }
-    res.status(201).send(await service.create(produto))
   } catch (err) {
     next(err)
   }
@@ -51,10 +52,12 @@ async function remove(req, res, next) {
       throw new Error("Produto não informado")
     }
     const produto_f = await service.read(produto_r)
-    if (!produto_f.codigo || !produto_f.preco) {
-      res.status(405).send(JSON.stringify({ error: `Produto não encontrado.` }))
+    if (!produto_f) {
+      res.status(404).send(JSON.stringify({ error: `Produto não encontrado.` }))
+    } else {
+      await service.remove(produto_r)
+      res.send(produto_f)
     }
-    res.send(await service.remove(produto_r))
   } catch (err) {
     next(err)
   }

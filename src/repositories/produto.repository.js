@@ -35,7 +35,7 @@ async function readByPK(produto) {
 async function update(produto) {
   try {
     await model.update(produto, { where: { id: produto.id } })
-    return await read(produto)
+    return await readByPK(produto)
   } catch (err) {
     throw err
   }
@@ -43,9 +43,7 @@ async function update(produto) {
 
 async function remove(produto) {
   try {
-    const produto_r = await read(produto)
     await model.destroy({ where: { id: produto.id } })
-    return produto_r
   } catch (err) {
     throw err
   }
