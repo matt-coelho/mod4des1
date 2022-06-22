@@ -1,5 +1,10 @@
 import server from "./src/app.js"
+import dotenv from "dotenv"
 
-server.listen(8090, () => {
-  console.log("server is up")
+dotenv.config()
+
+const port = process.env.port
+
+server.listen(port, () => {
+  console.log(`server is up on port ${port}`)
 })
